@@ -32,7 +32,7 @@ function FilmOption({ id }) {
       }
     };
     fetchMoviesInfo();
-  }, []);
+  }, [id]);
 
   const { items, isLoading, error } = film;
 
