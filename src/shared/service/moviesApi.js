@@ -33,4 +33,14 @@ export const searchFilmByName = async (query, page = 1) => {
   return data;
 };
 
-//vote_average, title , overview, genres, poster_path,
+export const getMovieCredits = async id => {
+  const { data } = await instance.get(`/movie/${id}/credits`);
+  return data;
+};
+
+export const getMovieReviews = async id => {
+  const { data } = await instance.get(`/movie/${id}/reviews`);
+  return data;
+};
+
+//movie/338953/credits

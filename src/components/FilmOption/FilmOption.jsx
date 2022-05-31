@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import { getMovieInfo } from 'shared/servise/moviesApi';
+import { getMovieInfo } from 'shared/service/moviesApi';
 
 import s from './filmOption.module.css';
 
-function FilmOption() {
-  const { id } = useParams();
+function FilmOption({ id }) {
   const [film, setFilm] = useState({
     items: {},
     isLoading: false,
@@ -16,11 +15,12 @@ function FilmOption() {
     const fetchMoviesInfo = async () => {
       setFilm(prevFilm => ({ ...prevFilm, isLoading: true }));
       const results = await getMovieInfo(id);
+      const genresName = results.genres.map(genre => genre.name);
 
       try {
         setFilm(prevFilm => ({
           ...prevFilm,
-          items: { ...results },
+          items: { ...results, genresName },
           isLoading: false,
         }));
       } catch (error) {
@@ -54,11 +54,11 @@ function FilmOption() {
             <div className="description">
               <p> User score: {vote_average * 10}%</p>
               <p>
-                <span>Overview</span>
+                <span>Overview:</span>
                 <span> {overview}</span>
               </p>
               <p>
-                <span>Genres</span>
+                <span>Genres:</span>
                 <span> {genresName}</span>
               </p>
             </div>
@@ -70,5 +70,8 @@ function FilmOption() {
     </>
   );
 }
+FilmOption.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default FilmOption;

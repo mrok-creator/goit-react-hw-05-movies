@@ -1,11 +1,15 @@
+import {useLocation} from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 
 import MoviesItem from '../MoviesItem';
 
 import s from './moviesList.module.css';
 
 function MoviesList({ items }) {
-  const elements = items.map(item => <MoviesItem key={item.id} {...item} />);
+  const location = useLocation();
+
+  const elements = items.map(item => <MoviesItem key={item.id} {...item} from={ location}/>);
 
   return <ul className={s.list}>{elements}</ul>;
 }

@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import SearchBar from './SearchBar';
 import MoviesList from 'shared/component/MoviesList';
-import { searchFilmByName } from 'shared/servise/moviesApi';
+import { searchFilmByName } from 'shared/service/moviesApi';
 
 function MoviesSearch() {
   const [state, setState] = useState({
@@ -11,7 +12,8 @@ function MoviesSearch() {
     error: null,
   });
 
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -28,18 +30,22 @@ function MoviesSearch() {
           movies: [...results],
         }));
       } catch (error) {
-        setState({ ...state, isLoading: false, error: error.message });
+        setState(prevState => ({
+          ...prevState,
+          isLoading: false,
+          error: error.message,
+        }));
       }
     };
     fetchMovies();
   }, [query]);
 
   const setMovie = useCallback(
-    q => {
-      setQuery(q);
+    query => {
+      setSearchParams({ query });
       setState(prevState => ({ ...prevState, movies: [] }));
     },
-    [setQuery, setState]
+    [query, setState]
   );
 
   const { movies, isLoading, error } = state;

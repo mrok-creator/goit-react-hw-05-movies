@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { popularMovies } from 'shared/servise/moviesApi';
+import { popularMovies } from 'shared/service/moviesApi';
 import MoviesList from 'shared/component/MoviesList';
 
 const PopularFilm = () => {

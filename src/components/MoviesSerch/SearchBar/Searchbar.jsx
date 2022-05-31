@@ -4,18 +4,18 @@ import PropTypes from 'prop-types';
 import s from './searchbar.module.css';
 
 function Searchbar({ onSubmit }) {
-  const [q, setQ] = useState('');
+  const [query, setQuery] = useState('');
 
   const onChange = ({ target }) => {
     const { value } = target;
-    setQ(value);
+    setQuery(value);
   };
   const getQuery = e => {
     e.preventDefault();
 
-    onSubmit(q);
+    onSubmit(query);
 
-    setQ('');
+    setQuery('');
   };
 
   return (
@@ -26,8 +26,8 @@ function Searchbar({ onSubmit }) {
         </button>
 
         <input
-          name="q"
-          value={q}
+          name="query"
+          value={query}
           className={s.input}
           type="text"
           autoComplete="off"
