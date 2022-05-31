@@ -45,7 +45,7 @@ function MoviesSearch() {
       setSearchParams({ query });
       setState(prevState => ({ ...prevState, movies: [] }));
     },
-    [query, setState, setSearchParams]
+    [setState, setSearchParams]
   );
 
   const { movies, isLoading, error } = state;
