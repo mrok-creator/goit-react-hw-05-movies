@@ -32,7 +32,7 @@ function Cast() {
       }
     };
     fetchMovies();
-  }, []);
+  }, [id]);
 
   const { items, isLoading, error } = cast;
 

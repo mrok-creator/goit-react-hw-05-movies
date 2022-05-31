@@ -32,7 +32,7 @@ function Reviews() {
       }
     };
     fetchMovies();
-  }, []);
+  }, [id]);
 
   const { items, isLoading, error } = reviews;
 
