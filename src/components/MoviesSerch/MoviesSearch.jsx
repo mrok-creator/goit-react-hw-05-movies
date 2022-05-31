@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import SearchBar from './SearchBar';
 import MoviesList from 'shared/component/MoviesList';
@@ -20,7 +20,7 @@ function MoviesSearch() {
       if (!query) {
         return;
       }
-      setState({ ...state, isLoading: true, error: null });
+      setState(prevState => ({ ...prevState, isLoading: true, error: null }));
 
       const { results } = await searchFilmByName(query);
       try {
@@ -45,7 +45,7 @@ function MoviesSearch() {
       setSearchParams({ query });
       setState(prevState => ({ ...prevState, movies: [] }));
     },
-    [query, setState]
+    [query, setState, setSearchParams]
   );
 
   const { movies, isLoading, error } = state;
